@@ -6,8 +6,10 @@ require_relative './utils/Connexion'
 # connex = c.enterBdd()
 # puts connex
 julien = Objet::Prestataire.new(1, 'Jean', 2131, 21, 2312, 2000)
-route = Objet::Roads.new(1, 'RN 7', '0*vitesse+2*employes-1*anciennete')
+route = Objet::Roads.new(1, 'RN 7', '0*vitesse+2*employes-1*anciennete+RN 2+RN 7')
 
+route.fetchFormule(nil)
+puts route.getFormule()
 table = route.getTriedPrestator(nil)
 
 for t in table

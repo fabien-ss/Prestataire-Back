@@ -4,6 +4,37 @@ module Objet
   class Roads
     attr_accessor :idRoad, :nom, :formule
 
+    def getAllRoads(connection)
+      mine = true
+      if(connection == nil)
+        c = Utils::Connexion.new()
+        connection = c.enterBdd()
+        mine = false
+      end
+      sql = "Select idroute, nom, formule from roads"
+      result = connection.exec(sql)
+      routes = []
+      result.each do |row|
+        r = self.class.new(row['idroute'], row['nom'], row['formule'])
+        routes.push(r)
+      end
+      if(mine == false)
+        connection.close
+      end
+      return routes
+    end
+
+    def fetchFormule(connection)
+      routes = self.getAllRoads(connection)
+      for r in routes
+        if self.getFormule().include?(r.getNom())
+          puts r.getNom()
+          newf = self.getFormule().gsub(r.getNom(), r.getFormule())
+          self.setFormule(newf)
+        end
+      end
+    end
+
     def getTriedPrestator(connection)
       mine = true
       if(connection == nil)
@@ -13,7 +44,6 @@ module Objet
       end
       formule = self.getFormule()
       sql = "Select idprestataire, nom, prix, vitesse, employes, anciennete ,("+formule+")/prix as score from v_prestataire order by ("+formule+")/prix"
-      puts sql
       result = connection.exec(sql)
       prestataires = []
       result.each do |row|
