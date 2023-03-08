@@ -8,7 +8,7 @@ CREATE TABLE PRESTATAIRE(
 );
 
 INSERT INTO PRESTATAIRE(nom, prix, vitesse, employes, anciennete)
-    VALUES('Koto', 20000, 12, 1231, 2020),('Keta', 13213, 12, 1000, 3000);
+    VALUES('Jean', 10000, 1000, 1931, 1997);
 
 CREATE TABLE ROADS(
     idRoute SERIAL PRIMARY KEY,

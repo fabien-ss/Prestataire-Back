@@ -1,13 +1,16 @@
 require 'pg'
-
-def enterBdd()
-  c = PG::Connection.new(
-    host: "localhost",
-    port: 5432,
-    dbname: "bddspaciale",
-    user: "fabien",
-    password: "fabien"
-  )
-  return c
+module Utils
+  class Connexion
+    def enterBdd()
+      c = PG::Connection.new(
+        host: "localhost",
+        port: 5432,
+        dbname: "prestataire2",
+        user: "fabien",
+        password: "fabien"
+      )
+      return c
+    end
+  end
 end
 

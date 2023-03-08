@@ -1,28 +1,9 @@
-require_relative './utils/Connexion'
+require_relative '../utils/Connexion'
 
 module Objet
   class Prestataire
-    attr_accessor :idPrestataire, :nom, :vitesse, :prix, :employes, :anciennete
+    attr_accessor :idPrestataire, :nom, :vitesse, :prix, :employes, :anciennete, :score
 
-    def getTriedPrestatair(route, connection)
-      mine = true
-      if(connection == nil)
-        connection = utils::Connexion.enterBdd()
-        mine = false
-      end
-      formule = route.getFormule()
-      sql = "Select idprestataire ,nom, prix, vitesse, employes, anciennete from prestataire order by ("+formule+")/prix"
-      result = connection.exec(sql)
-      prestataires = []
-      result.each do |row|
-        pre = Prestataire.new(row['idprestataire '], row['nom'], row['prix'], row['vitesse'], row['employes'], row['anciennete'])
-        prestataire << pre
-      end
-      if(mine == false)
-        connection.close
-      end
-      return prestataires
-    end
 
     def initialize(idPrestataire, nom, prix, vitesse, employes, anciennete)
       setIdPrestataire(idPrestataire)
@@ -41,6 +22,14 @@ module Objet
       end
 
     end
+
+    def setScore(idPrestataire)
+      @score = idPrestataire
+    end
+    def getScore()
+      @score
+    end
+
     def setIdPrestataire(idPrestataire)
       @idPrestataire = idPrestataire
     end
